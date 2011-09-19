@@ -6,7 +6,6 @@ import net.sacredlabyrinth.Phaed.TelePlusPlus.TargetBlock;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.TeleHistory;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.TelePlusPlus;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.Request;
-import me.taylorkelly.help.Help;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +22,7 @@ import org.bukkit.util.config.ConfigurationNode;
 
 public class CommandManager {
     private TelePlusPlus plugin;
-    
-    protected Help helpPlugin;
+
     protected static HashMap<String, Integer> playerSettings;
     
     
@@ -400,25 +398,7 @@ public class CommandManager {
                     return true;
                 }
             } else if ((split[0].equalsIgnoreCase("help") || split[0].equalsIgnoreCase("menu")) && plugin.permissionsManager.hasPermission(player, plugin.permissionsManager.menu) && !plugin.settingsManager.disableMenu) {
-                if (plugin.helpManager.isHelpActive()) {
-                    int pageNumber = 1;
-                    
-                    if ((split.length >= 2) && (Helper.isNumber(split[1]))) {
-                        pageNumber = Integer.parseInt(split[1]);
-                        player.performCommand("help " + plugin.pluginName + " "+pageNumber);
-                        return true;
-                    }
-                    
-                    if ((split.length >= 2) && (!Helper.isNumber(split[1]))) {
-                        player.performCommand("help search tp " + split[1]);
-                        return true;
-                    }
-                    
-                    player.performCommand("help " + plugin.pluginName + " "+pageNumber);
-                } else {
-                    plugin.helpManager.showInternalHelp(player);
-                }
-
+                plugin.helpManager.showInternalHelp(player);
                 return true;
             } else if (split[0].equalsIgnoreCase("options") && plugin.permissionsManager.hasPermission(player, plugin.permissionsManager.options) && !plugin.settingsManager.disableOptions) {
                 if (split.length >= 2) {

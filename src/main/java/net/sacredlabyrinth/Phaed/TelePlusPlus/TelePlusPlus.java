@@ -67,11 +67,7 @@ public class TelePlusPlus extends JavaPlugin {
         this.getServer().getPluginManager().registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
         this.getServer().getPluginManager().registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Monitor, this);
 
-        TppLogger.Log("initializing version [" + pluginVersion + "]");
-        
-        // setupHelpmanager
-        helpManager.initialize();
-        
+        TppLogger.Log("initializing version [" + pluginVersion + "]");        
         TppLogger.Log("version [" + pluginVersion + "] loaded");
     }
 

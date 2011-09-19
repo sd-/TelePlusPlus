@@ -3,8 +3,6 @@ package net.sacredlabyrinth.Phaed.TelePlusPlus.managers;
 import java.util.logging.Logger;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.TelePlusPlus;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.Helper;
-
-import me.taylorkelly.help.Help;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.ChatBlock;
 
 import org.bukkit.Bukkit;
@@ -21,52 +19,8 @@ public final class HelpManager {
     protected TelePlusPlus plugin;
     protected static final Logger logger = Logger.getLogger("Minecraft");
     
-    private Help helpPlugin;
-    
     public HelpManager(TelePlusPlus plugin) {
         this.plugin = plugin;
-    }
-    
-    public void initialize() {
-        registerHelpCommands();
-    }
-    
-    public void registerHelpCommands() {
-        Plugin test = plugin.getServer().getPluginManager().getPlugin("Help");
-
-        if ((helpPlugin == null) && (test != null))
-            this.helpPlugin = ((Help) test);
-
-        if (this.isHelpActive()) {
-            helpPlugin.registerCommand("tp", "List " + plugin.name + " commands", plugin, true, plugin.permissionsManager.menu);
-            
-            helpPlugin.registerCommand("tp [player]", "Teleport to another player", plugin, plugin.permissionsManager.player);
-            helpPlugin.registerCommand("tp [player(s)] to [player]", "Teleport players to player", plugin, plugin.permissionsManager.othersPlayer);
-            helpPlugin.registerCommand("tp [player(s)] to [x] [y] [z]", "Teleport players to coords", plugin, plugin.permissionsManager.othersCoords);
-            helpPlugin.registerCommand("tp [x] [y] [z]", "Teleport to coordinates", plugin, plugin.permissionsManager.coords);
-            helpPlugin.registerCommand("tp [world] <x> <y> <z>", "Teleport to world", plugin, plugin.permissionsManager.world);
-            helpPlugin.registerCommand("tp here [player(s)]", "Teleport players to you", plugin, plugin.permissionsManager.here);
-            helpPlugin.registerCommand("tp mass", "Teleport all players to you", plugin, plugin.permissionsManager.mass);
-            helpPlugin.registerCommand("tp top", "Teleport to the block highest above you", plugin, plugin.permissionsManager.top);
-            helpPlugin.registerCommand("tp up <height>", "Teleport up on a glass block", plugin, plugin.permissionsManager.up);
-            helpPlugin.registerCommand("tp above [player] <height>", "Teleport above a player", plugin, plugin.permissionsManager.above);
-            helpPlugin.registerCommand("tp jump", "Teleport to the block you're looking at", plugin, plugin.permissionsManager.jump);
-            helpPlugin.registerCommand("tp toggle", "Toggle teleporting to you on/off", plugin, plugin.permissionsManager.toggle);
-            helpPlugin.registerCommand("tp back", "Teleport back to your previous locations", plugin, plugin.permissionsManager.back);
-            helpPlugin.registerCommand("tp origin", "Go back to where you were before all tps", plugin, plugin.permissionsManager.origin);
-            helpPlugin.registerCommand("tp clear", "Clear your tp history and " + Helper.friendlyBlockType(Material.getMaterial(plugin.settingsManager.moverItem).toString()).toLowerCase() + " selections", plugin, plugin.permissionsManager.clear);
-            helpPlugin.registerCommand("tp tool", "Get a " + Helper.friendlyBlockType(Material.getMaterial(plugin.settingsManager.toolItem).toString()).toLowerCase() + " to tp yourself around", plugin, plugin.permissionsManager.tool);
-            helpPlugin.registerCommand("tp mover", "Get a " + Helper.friendlyBlockType(Material.getMaterial(plugin.settingsManager.moverItem).toString()).toLowerCase() + " to tp others around", plugin, plugin.permissionsManager.mover);
-            helpPlugin.registerCommand("tp request [player|x y z] [reason]", "Request tp", plugin, plugin.permissionsManager.request);
-            helpPlugin.registerCommand("tp options <node> <value>", "Get or set options-node", plugin, plugin.permissionsManager.options);
-            helpPlugin.registerCommand("tp version", "Display version", plugin, plugin.permissionsManager.version);
-            helpPlugin.registerCommand("tp help <pagenumber>", "List commands @pagenumber", plugin, plugin.permissionsManager.menu);
-            helpPlugin.registerCommand("tp help <command>", "Search for <command>", plugin, plugin.permissionsManager.menu);
-
-            logger.info("[" + plugin.name + "] 'Help' support enabled");
-        } else {
-            logger.warning("'Help' not detected. No Help support enabled! Using internal Help");
-        }
     }
     
     public void showInternalHelp(Player player) {
@@ -162,10 +116,6 @@ public final class HelpManager {
     }
     
     public Boolean isHelpActive() {
-        if ((this.helpPlugin != null) && (this.helpPlugin instanceof Help) && (!plugin.settingsManager.disableMenu)) {
-            return true;
-        } else {
-            return false;
-        }
+        return !plugin.settingsManager.disableMenu;
     }
 }
