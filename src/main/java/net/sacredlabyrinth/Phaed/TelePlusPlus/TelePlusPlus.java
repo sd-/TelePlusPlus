@@ -17,10 +17,9 @@ import net.sacredlabyrinth.Phaed.TelePlusPlus.managers.TppLogger;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.command.CommandSender;
-import org.bukkit.util.config.Configuration;
+import org.bukkit.configuration.*;
 
 public class TelePlusPlus extends JavaPlugin {
     private TPPlayerListener playerListener;
@@ -45,7 +44,7 @@ public class TelePlusPlus extends JavaPlugin {
     
     @Override
     public void onEnable() {
-        this.config = this.getConfiguration();
+        this.config = this.getConfig();
         playerListener = new TPPlayerListener(this);
         entityListener = new TPEntityListener(this);
         
@@ -63,9 +62,9 @@ public class TelePlusPlus extends JavaPlugin {
         itemManager = new ItemManager(this);
         moverManager = new MoverManager();
 
-        this.getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
-        this.getServer().getPluginManager().registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
-        this.getServer().getPluginManager().registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Monitor, this);
+        getServer().getPluginManager().registerEvents(playerListener, this);
+        getServer().getPluginManager().registerEvents(entityListener, this);
+
 
         TppLogger.Log("initializing version [" + pluginVersion + "]");        
         TppLogger.Log("version [" + pluginVersion + "] loaded");

@@ -18,7 +18,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.util.config.ConfigurationNode;
+import org.bukkit.configuration.*;
 
 public class CommandManager {
     private TelePlusPlus plugin;
